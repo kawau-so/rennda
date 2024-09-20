@@ -2,8 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>Button Spam</title>
-    <script src="./script.js" defer></script>
+    <title>Button Spam with Notifications</title>
 </head>
 <body>
     <button id="spamButton">ボタン</button>
@@ -20,8 +19,20 @@
 
         function spamClick() {
             if (isSpamming) {
-                console.log('ボタンが押されました！'); // ここでボタンが押されたときの処理を追加
+                showNotification('ボタンが押されました！'); // 通知を表示
                 setTimeout(spamClick, 100); // 100ミリ秒ごとにボタンを押す
+            }
+        }
+
+        function showNotification(message) {
+            if (Notification.permission === 'granted') {
+                new Notification(message);
+            } else if (Notification.permission !== 'denied') {
+                Notification.requestPermission().then(permission => {
+                    if (permission === 'granted') {
+                        new Notification(message);
+                    }
+                });
             }
         }
 
