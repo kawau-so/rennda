@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Button Spam</title>
+</head>
+<body>
+    <button id="spamButton">ボタン</button>
+
+    <script>
+        let isSpamming = false;
+
+        document.getElementById('spamButton').addEventListener('click', function() {
+            if (!isSpamming) {
+                isSpamming = true;
+                spamClick();
+            }
+        });
+
+        function spamClick() {
+            if (isSpamming) {
+                console.log('ボタンが押されました！'); // ここでボタンが押されたときの処理を追加
+                setTimeout(spamClick, 100); // 100ミリ秒ごとにボタンを押す
+            }
+        }
+
+        window.addEventListener('beforeunload', function() {
+            isSpamming = false; // サイトが閉じる際に連打を停止
+        });
+    </script>
+</body>
+</html>
